@@ -859,4 +859,8 @@
     <dimen name="waterfall_display_top_edge_size">0px</dimen>
     <dimen name="waterfall_display_right_edge_size">0px</dimen>
     <dimen name="waterfall_display_bottom_edge_size">0px</dimen>
+
+    <!-- toast icons -->
+    <dimen name="toast_elevation">4dp</dimen>
+
 </resources>
