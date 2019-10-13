@@ -32,10 +32,19 @@ LOCAL_REQUIRED_MODULES := \
 	AccentColorTangerineOverlay \
 	DisplayCutoutEmulationCornerOverlay \
 	DisplayCutoutEmulationDoubleOverlay \
-    DisplayCutoutEmulationHoleOverlay \
+        DisplayCutoutEmulationHoleOverlay \
 	DisplayCutoutEmulationTallOverlay \
 	DisplayCutoutEmulationWaterfallOverlay \
+	FontAclonicaSourceOverlay \
+	FontAmaranteSourceOverlay \
+	FontBariolSourceOverlay \
+	FontCagliostroSourceOverlay \
+	FontCoolstorySourceOverlay \
+	FontLGSmartGothicSourceOverlay \
 	FontNotoSerifSourceOverlay \
+	FontRosemarySourceOverlay \
+	FontSonySketchSourceOverlay \
+	FontSurferSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
 	IconPackCircularSettingsOverlay \
