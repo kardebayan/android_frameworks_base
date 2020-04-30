@@ -21,4 +21,8 @@
 
     <!-- volume panel -->
     <dimen name="vol_dot_spacer">4dp</dimen>
+
+    <!-- App Lock -->
+    <dimen name="applock_icon_dimension">54dp</dimen>
+
 </resources>
