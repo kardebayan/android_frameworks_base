@@ -23,5 +23,10 @@
     <string name="clock_title_type" translatable="false">Type</string>
     <string name="date_long_title_today">Today is %s</string>
     <string name="clock_title_samsung_accent" translatable="false">Sammy (colored)</string>
+    <string name="clock_title_swing" translatable="false">Swing animation</string>
+    <string name="clock_title_loading" translatable="false">Loading animation</string>
+    <string name="clock_title_bubble_animation" translatable="false">Bubble animation</string>
+    <string name="clock_title_rainbow_circle_animation" translatable="false">Rainbow circle</string>
+    <string name="clock_title_fire_circle_animation" translatable="false">Fire circle</string>
 
 </resources>
