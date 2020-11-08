@@ -40,4 +40,7 @@
 
     <!-- Default value for Horizon light color (Blue) -->
     <integer name="config_AmbientPulseLightColor">0x3980FF</integer>
+
+    <bool name="config_has_Soli">false</bool>
+
 </resources>

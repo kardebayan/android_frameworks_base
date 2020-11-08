@@ -31,4 +31,7 @@
 
     <!-- Horizon Light -->
     <java-symbol type="integer" name="config_AmbientPulseLightColor" />
+
+    <java-symbol type="bool" name="config_has_Soli" />
+
 </resources>
