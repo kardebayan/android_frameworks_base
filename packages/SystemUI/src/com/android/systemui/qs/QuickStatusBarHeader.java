@@ -32,6 +32,9 @@ import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.UserManager;
+import android.os.UserHandle;
+import android.graphics.PorterDuff.Mode;
 import android.provider.AlarmClock;
 import android.provider.Settings;
 import android.service.notification.ZenModeConfig;
@@ -82,6 +85,10 @@ import com.android.systemui.statusbar.phone.StatusBarIconController;
 import com.android.systemui.statusbar.phone.StatusBarIconController.TintedIconManager;
 import com.android.systemui.statusbar.phone.StatusBarWindowView;
 import com.android.systemui.statusbar.phone.StatusIconContainer;
+import com.android.systemui.statusbar.phone.MultiUserSwitch;
+import com.android.settingslib.drawable.UserIconDrawable;
+import com.android.keyguard.KeyguardUpdateMonitor;
+import android.graphics.drawable.Drawable;
 import com.android.systemui.statusbar.policy.Clock;
 import com.android.systemui.statusbar.policy.DateView;
 import com.android.systemui.statusbar.policy.NextAlarmController;
@@ -89,6 +96,9 @@ import com.android.systemui.statusbar.policy.ZenModeController;
 import com.android.systemui.util.RingerModeTracker;
 import com.android.systemui.tuner.TunerService;
 
+import lineageos.providers.LineageSettings;
+import com.android.systemui.statusbar.policy.UserInfoController;
+import com.android.systemui.statusbar.policy.UserInfoController.OnUserInfoChangedListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -104,7 +114,7 @@ import javax.inject.Named;
  */
 public class QuickStatusBarHeader extends RelativeLayout implements
         View.OnClickListener, NextAlarmController.NextAlarmChangeCallback,
-        ZenModeController.Callback, LifecycleOwner, TunerService.Tunable {
+        ZenModeController.Callback, LifecycleOwner, TunerService.Tunable, OnUserInfoChangedListener {
     private static final String TAG = "QuickStatusBarHeader";
     private static final boolean DEBUG = false;
 
@@ -116,6 +126,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
     private final NextAlarmController mAlarmController;
     private final ZenModeController mZenController;
+    private final UserInfoController mUserInfoController;
     private final StatusBarIconController mStatusBarIconController;
     private final ActivityStarter mActivityStarter;
     private final BlurUtils mBlurUtils;
@@ -126,7 +137,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private boolean mListening;
     private boolean mQsDisabled;
 
-    private QSCarrierGroup mCarrierGroup;
     protected QuickQSPanel mHeaderQsPanel;
     protected QSTileHost mHost;
     private TintedIconManager mIconManager;
@@ -159,6 +169,9 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
     private PrivacyItemController mPrivacyItemController;
     private final UiEventLogger mUiEventLogger;
+    protected MultiUserSwitch mMultiUserSwitch;
+    private ImageView mMultiUserAvatar;
+
     // Used for RingerModeTracker
     private final LifecycleRegistry mLifecycle = new LifecycleRegistry(this);
 
@@ -210,7 +223,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
             StatusBarIconController statusBarIconController,
             ActivityStarter activityStarter, PrivacyItemController privacyItemController,
             CommandQueue commandQueue, RingerModeTracker ringerModeTracker,
-            UiEventLogger uiEventLogger) {
+            UiEventLogger uiEventLogger, UserInfoController userInfoController) {
         super(context, attrs);
         mAlarmController = nextAlarmController;
         mZenController = zenModeController;
@@ -225,6 +238,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mRingerModeTracker = ringerModeTracker;
         mUiEventLogger = uiEventLogger;
         mBlurUtils = new BlurUtils(mContext.getResources(), new DumpManager());
+        mUserInfoController = userInfoController;
     }
 
     @Override
@@ -246,9 +260,10 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mNextAlarmTextView = findViewById(R.id.next_alarm_text);
         mNextAlarmContainer = findViewById(R.id.alarm_container);
         mNextAlarmContainer.setOnClickListener(this::onClick);
-        mCarrierGroup = findViewById(R.id.carrier_group);
         mPrivacyChip = findViewById(R.id.privacy_chip);
         mPrivacyChip.setOnClickListener(this::onClick);
+        mMultiUserSwitch = findViewById(R.id.multi_user_switch);
+        mMultiUserAvatar = mMultiUserSwitch.findViewById(R.id.multi_user_avatar);
 
         updateResources();
 
@@ -596,6 +611,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
             updateResources();
         }
         mListening = listening;
+        updateListeners();
 
         if (listening) {
             mZenController.addCallback(this);
@@ -697,6 +713,14 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         return color == Color.WHITE ? 0 : 1;
     }
 
+    private void updateListeners() {
+        if (mListening) {
+            mUserInfoController.addCallback(this);
+        } else {
+            mUserInfoController.removeCallback(this);
+        }
+    }
+
     @NonNull
     @Override
     public Lifecycle getLifecycle() {
@@ -746,6 +770,18 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     @Override
     public void onTuningChanged(String key, String newValue) {
         mClockView.setClockVisibleByUser(!StatusBarIconController.getIconBlacklist(
-                mContext, newValue).contains("clock"));
+           mContext, newValue).contains("clock"));
+        }
+    @override
+    public void onUserInfoChanged(String name, Drawable picture, String userAccount) {
+        if (picture != null &&
+                UserManager.get(mContext).isGuestUser(KeyguardUpdateMonitor.getCurrentUser()) &&
+                !(picture instanceof UserIconDrawable)) {
+            picture = picture.getConstantState().newDrawable(mContext.getResources()).mutate();
+            picture.setColorFilter(
+                    Utils.getColorAttrDefaultColor(mContext, android.R.attr.colorForeground),
+                    Mode.SRC_IN);
+        }
+        mMultiUserAvatar.setImageDrawable(picture);
     }
 }
