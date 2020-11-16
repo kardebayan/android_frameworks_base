@@ -714,7 +714,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
         mMetricsLogger.visibility(MetricsEvent.QS_PANEL, mExpanded);
         if (!mExpanded) {
-            updateVerticalMargin(mBrightnessView, -18);
             mUiEventLogger.log(closePanelEvent());
             closeDetail();
         } else {
