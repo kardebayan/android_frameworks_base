@@ -161,7 +161,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private Clock mClockView;
     private DateView mDateView;
     private OngoingPrivacyChip mPrivacyChip;
-    private Space mSpace;
     private BatteryMeterView mBatteryRemainingIcon;
     private RingerModeTracker mRingerModeTracker;
     private boolean mAllIndicatorsEnabled;
@@ -285,7 +284,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mClockView = findViewById(R.id.clock);
         mClockView.setOnClickListener(this);
         mDateView = findViewById(R.id.date);
-        mSpace = findViewById(R.id.space);
 
         // Tint for the battery icons are handled in setupHost()
         mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
@@ -539,22 +537,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
             mSystemIconsView.setPadding(padding.first, 0, padding.second, 0);
 
         }
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mSpace.getLayoutParams();
-        boolean cornerCutout = cornerCutoutPadding != null
-                && (cornerCutoutPadding.first == 0 || cornerCutoutPadding.second == 0);
-        if (cutout != null) {
-            Rect topCutout = cutout.getBoundingRectTop();
-            if (topCutout.isEmpty() || cornerCutout) {
-                mHasTopCutout = false;
-                lp.width = 0;
-                mSpace.setVisibility(View.GONE);
-            } else {
-                mHasTopCutout = true;
-                lp.width = topCutout.width();
-                mSpace.setVisibility(View.VISIBLE);
-            }
-        }
-        mSpace.setLayoutParams(lp);
         setChipVisibility(mPrivacyChip.getVisibility() == View.VISIBLE);
         mCutOutPaddingLeft = padding.first;
         mCutOutPaddingRight = padding.second;
@@ -771,8 +753,8 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     public void onTuningChanged(String key, String newValue) {
         mClockView.setClockVisibleByUser(!StatusBarIconController.getIconBlacklist(
            mContext, newValue).contains("clock"));
-        }
-    @override
+    }
+    @Override
     public void onUserInfoChanged(String name, Drawable picture, String userAccount) {
         if (picture != null &&
                 UserManager.get(mContext).isGuestUser(KeyguardUpdateMonitor.getCurrentUser()) &&
