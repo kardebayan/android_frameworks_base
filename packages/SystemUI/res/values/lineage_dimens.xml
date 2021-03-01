@@ -34,4 +34,7 @@
 
     <dimen name="keyguard_security_fod_view_margin">140dp</dimen>
 
+    <!-- Media Player -->
+    <dimen name="quick_settings_top_margin_media">4dp</dimen>
+    <dimen name="quick_settings_top_margin_media_extra">10dp</dimen>
 </resources>
