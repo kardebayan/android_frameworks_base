@@ -130,4 +130,8 @@
 
     <!-- Sneeky Analog clock -->
     <string name="clock_title_sneeky" translatable="false">Sneeky</string>
+
+    <!-- Biometric Dialog - Use Face -->
+    <string name="biometric_dialog_button_use_face">Use Face</string>
+
 </resources>
