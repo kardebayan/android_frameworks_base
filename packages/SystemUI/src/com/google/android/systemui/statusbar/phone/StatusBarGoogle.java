@@ -92,6 +92,7 @@ import com.android.systemui.volume.VolumeComponent;
 
 import com.google.android.systemui.NotificationLockscreenUserManagerGoogle;
 import com.google.android.systemui.smartspace.SmartSpaceController;
+import com.android.systemui.tuner.TunerService;
 
 import dagger.Lazy;
 
@@ -192,7 +193,8 @@ public class StatusBarGoogle extends StatusBar {
             KeyguardIndicationController keyguardIndicationController,
             DismissCallbackRegistry dismissCallbackRegistry,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
-            StatusBarTouchableRegionManager statusBarTouchableRegionManager) {
+            StatusBarTouchableRegionManager statusBarTouchableRegionManager,
+            TunerService tunerService) {
         super(context,
                 notificationsController,
                 lightBarController,
@@ -269,7 +271,8 @@ public class StatusBarGoogle extends StatusBar {
                 keyguardIndicationController,
                 dismissCallbackRegistry,
                 notificationShadeDepthControllerLazy,
-                statusBarTouchableRegionManager);
+                statusBarTouchableRegionManager,
+                tunerService);
         mSmartSpaceController = smartSpaceController;
         mWallpaperNotifier = wallpaperNotifier;
     }
