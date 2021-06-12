@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2019 RevengeOS
+<!-- 
+     Copyright (C) 2020 ProjectFluid
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,10 +15,21 @@
      limitations under the License.
 -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:visible="true" android:shape="rectangle" android:useLevel="false">
-    <solid android:color="@color/white" />
-    <corners android:radius="25dp" />
-    <size android:height="21dp" android:width="21dp" />
-    <stroke android:width="7dp" android:color="@color/transparent" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:visible="true" android:shape="oval" android:useLevel="false">
+            <solid android:color="?android:attr/colorAccent" />
+            <corners android:radius="24dp" />
+            <size android:height="20dp" android:width="20dp" />
+            <stroke android:width="8dp" android:color="@color/transparent" />
+        </shape>
+    </item>
+    <item android:state_checked="false">
+        <shape android:visible="true" android:shape="oval" android:useLevel="false">
+            <solid android:color="@color/white" />
+            <corners android:radius="24dp" />
+            <size android:height="20dp" android:width="20dp" />
+            <stroke android:width="8dp" android:color="@color/transparent" />
+        </shape>
+    </item>
+</selector>
