@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-     Copyright (C) 2020 ProjectFluid
+     Copyright (C) 2020 crDroid Android Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,22 +14,21 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true">
-        <shape android:visible="true" android:shape="oval" android:useLevel="false">
-            <solid android:color="?android:attr/colorAccent" />
-            <corners android:radius="24dp" />
-            <size android:height="20dp" android:width="20dp" />
-            <stroke android:width="8dp" android:color="@color/transparent" />
-        </shape>
-    </item>
-    <item android:state_checked="false">
-        <shape android:visible="true" android:shape="oval" android:useLevel="false">
-            <solid android:color="@color/white" />
-            <corners android:radius="24dp" />
-            <size android:height="20dp" android:width="20dp" />
-            <stroke android:width="8dp" android:color="@color/transparent" />
-        </shape>
-    </item>
+	<item android:state_checked="true">
+		<shape android:visible="true" android:shape="rectangle" android:useLevel="false">
+			<solid android:color="@color/switch_thumb_material" />
+			<corners android:radius="25dp" />
+			<size android:height="18dp" android:width="18dp" />
+            <stroke android:width="4dp" android:color="@*android:color/transparent" />
+		</shape>
+	</item>
+	<item android:state_checked="false">
+		<shape android:visible="true" android:shape="rectangle" android:useLevel="false">
+			<solid android:color="@color/switch_thumb_material" />
+			<corners android:radius="25dp" />
+			<size android:height="18dp" android:width="18dp" />
+            <stroke android:width="4dp" android:color="@*android:color/transparent" />
+		</shape>
+	</item>
 </selector>
