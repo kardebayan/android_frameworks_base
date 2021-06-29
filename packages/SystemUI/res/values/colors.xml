@@ -272,10 +272,6 @@
 
     <color name="screenrecord_status_color">#E94235</color>
 
-    <!-- volume panel -->
-    <color name="default_volume_transparency">#CCFFFFFF</color>
-    <color name="accent_volume_transparency">#66FFFFFF</color>
-
     <color name="qs_tile_background_color_disabled">#f2f2f2</color>
 
     <!-- Clear all notifications button -->
